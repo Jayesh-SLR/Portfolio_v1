@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jayesh Shelar — Electronics & Computer Engineer | Embedded & Software</title>
+  <meta name="description" content="Portfolio of Jayesh Shelar — Electronics & Computer Engineer specializing in Embedded Systems, AI/RAG, Java Spring Boot, and systems programming.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Custom Cursor (Desktop Only) -->
+  <div id="custom-cursor" class="custom-cursor" aria-hidden="true">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+    <span class="cursor-label"></span>
+  </div>
+
+  <!-- Scroll Progress Indicator -->
+  <div id="scroll-progress" class="scroll-progress-bar" aria-hidden="true"></div>
+
+  <!-- Visual Overlay Layers (grain, scanline, grid) -->
+  <div class="visual-grain" aria-hidden="true"></div>
+  <div class="visual-scanlines" aria-hidden="true"></div>
+
+  <!-- Themed Loading Animation (Jayesh Design) -->
+  <div id="preloader" class="preloader" role="status" aria-label="Loading portfolio">
+    <div class="preloader-content">
+      <!-- Pulsing Fiery Eclipse Ring -->
+      <div class="preloader-ring-wrapper">
+        <div class="preloader-ring-glow"></div>
+        <div class="preloader-ring"></div>
+        <div class="preloader-logo-icon">
+          <svg viewBox="0 0 54 36" fill="none" aria-hidden="true">
+            <path d="M4 14C12 4 36 2 48 10C51 12 51 15 47 16C37 18 18 16 8 26C6 28 4 27 4 24V14Z" fill="#ff4b12" />
+            <path d="M12 8H26C30 8 33 11 33 15C33 19 30 22 26 22H19V32H12V8ZM19 14V16H25C26 16 27 15.5 27 15C27 14.5 26 14 25 14H19Z" fill="#ffffff" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Brand & Tagline -->
+      <div class="preloader-brand">
+        <span class="preloader-brand-title">JAYESH SHELAR</span>
+        <span class="preloader-brand-sub">ELECTRONICS & COMPUTER ENGINEER</span>
+      </div>
+
+      <!-- Progress Bar & Percentage Counter -->
+      <div class="preloader-progress-container">
+        <div class="preloader-progress-track">
+          <div id="preloader-bar" class="preloader-progress-fill"></div>
+        </div>
+        <div class="preloader-info">
+          <span id="preloader-status" class="preloader-status">LOADING FRAMES</span>
+          <span id="preloader-percent" class="preloader-percentage">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Background Canvas for Smooth Scroll Animation -->
+  <canvas id="animation-canvas" aria-hidden="true"></canvas>
+
+  <!-- Canvas Intensity Overlay (controlled per section) -->
+  <div id="canvas-overlay" class="canvas-overlay" aria-hidden="true"></div>
+
+  <!-- Content Layer Positioned Directly on Top of the Scroll Animation -->
+  <div id="content-container">
+    
+    <!-- Navigation Bar -->
+    <header class="navbar" role="banner">
+      <div class="nav-container">
+        <!-- Logo -->
+        <a href="#home" class="nav-brand" aria-label="Jayesh Shelar - Home">
+          <svg class="brand-logo-svg" viewBox="0 0 54 36" fill="none" aria-hidden="true">
+            <path d="M4 14C12 4 36 2 48 10C51 12 51 15 47 16C37 18 18 16 8 26C6 28 4 27 4 24V14Z" fill="#ff4b12" />
+            <path d="M12 8H26C30 8 33 11 33 15C33 19 30 22 26 22H19V32H12V8ZM19 14V16H25C26 16 27 15.5 27 15C27 14.5 26 14 25 14H19Z" fill="#ffffff" />
+            <text x="6" y="34" fill="#9ca3af" font-size="5" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" letter-spacing="1.2">Jayesh Shelar</text>
+          </svg>
+        </a>
+
+        <!-- Center Nav Links (Desktop) -->
+        <nav class="nav-menu" role="navigation" aria-label="Main navigation">
+          <a href="#about" class="nav-link" data-cursor="NAVIGATE"><span class="nav-num">01</span> ABOUT</a>
+          <a href="#skills" class="nav-link" data-cursor="NAVIGATE"><span class="nav-num">02</span> EXPERTISE</a>
+          <a href="#system" class="nav-link" data-cursor="NAVIGATE"><span class="nav-num">03</span> SYSTEM</a>
+          <a href="#projects" class="nav-link" data-cursor="NAVIGATE"><span class="nav-num">04</span> PROJECTS</a>
+          <a href="#contact" class="nav-link" data-cursor="NAVIGATE"><span class="nav-num">05</span> CONTACT</a>
+        </nav>
+
+        <!-- Right Side -->
+        <div class="nav-right">
+          <a href="#contact" class="btn-lets-talk magnetic-btn" data-cursor="OPEN →">
+            <span>CONTACT ME</span>
+            <span class="glowing-orange-dot"></span>
+          </a>
+          <!-- Mobile Menu Toggle -->
+          <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+      <div class="mobile-menu-inner">
+        <nav class="mobile-nav-links">
+          <a href="#home" class="mobile-nav-link"><span class="mobile-nav-num">00</span> HOME</a>
+          <a href="#about" class="mobile-nav-link"><span class="mobile-nav-num">01</span> ABOUT</a>
+          <a href="#skills" class="mobile-nav-link"><span class="mobile-nav-num">02</span> EXPERTISE</a>
+          <a href="#system" class="mobile-nav-link"><span class="mobile-nav-num">03</span> SYSTEM</a>
+          <a href="#projects" class="mobile-nav-link"><span class="mobile-nav-num">04</span> PROJECTS</a>
+          <a href="#building" class="mobile-nav-link"><span class="mobile-nav-num">05</span> BUILDING</a>
+          <a href="#contact" class="mobile-nav-link"><span class="mobile-nav-num">06</span> CONTACT</a>
+        </nav>
+        <div class="mobile-menu-footer">
+          <div class="mobile-status">
+            <span class="status-pulse-dot"></span>
+            <span>AVAILABLE FOR OPPORTUNITIES</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Home / Hero Section -->
+    <section id="home" class="section hero-section" data-canvas-opacity="0">
+      <!-- Right Side Vertical Text -->
+      <div class="hero-vertical-text" aria-hidden="true">
+        <span>VISUAL THAT SPEAK</span>
+      </div>
+
+      <div class="section-container hero-container">
+        <div class="hero-left-col">
+          <!-- Kicker Tagline -->
+          <div class="hero-kicker reveal-el">
+            <span class="kicker-dot"></span>
+            <span class="kicker-light">HEY I AM</span>
+            <span class="kicker-orange">Jayesh Shelar</span>
+          </div>
+
+          <!-- Bold Display Headline -->
+          <h1 class="hero-title reveal-el" data-delay="100">
+            <span class="title-row">I ENGINEER</span>
+            <span class="title-row">SYSTEMS</span>
+            <span class="title-row">THAT <span class="highlight-orange">INSPIRE</span></span>
+          </h1>
+
+          <!-- Subtext Paragraph -->
+          <p class="hero-desc reveal-el" data-delay="200">
+            Electronics & Computer Engineer proficient in C, Python, and Java. Specializing in AI-powered GitHub repository RAG intelligence and advancing in Embedded Systems engineering.
+          </p>
+
+          <!-- Action Buttons Row -->
+          <div class="hero-actions reveal-el" data-delay="300">
+            <a href="#projects" class="btn-view-work magnetic-btn" data-cursor="VIEW PROJECTS">
+              <span>VIEW PROJECTS</span>
+              <span class="btn-inner-circle">
+                <span class="inner-dot"></span>
+              </span>
+            </a>
+
+            <button class="btn-watch-showreel" id="btn-showreel" data-cursor="PLAY">
+              <span class="play-icon-box">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </span>
+              <span>RAG SHOWCASE</span>
+            </button>
+          </div>
+
+          <!-- Metrics Row -->
+          <div class="hero-stats reveal-el" data-delay="400">
+            <div class="stat-card">
+              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              <div class="stat-text">
+                <span class="stat-value">C • PY • JAVA</span>
+                <span class="stat-label">CORE LANGUAGES</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <rect x="9" y="9" width="6" height="6"></rect>
+                <line x1="9" y1="1" x2="9" y2="4"></line>
+                <line x1="15" y1="1" x2="15" y2="4"></line>
+                <line x1="9" y1="20" x2="9" y2="23"></line>
+                <line x1="15" y1="20" x2="15" y2="23"></line>
+                <line x1="20" y1="9" x2="23" y2="9"></line>
+                <line x1="20" y1="14" x2="23" y2="14"></line>
+                <line x1="1" y1="9" x2="4" y2="9"></line>
+                <line x1="1" y1="14" x2="4" y2="14"></line>
+              </svg>
+              <div class="stat-text">
+                <span class="stat-value">EMBEDDED & AI</span>
+                <span class="stat-label">FOCUS DOMAINS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Core Tech Stack -->
+          <div class="hero-trusted-row reveal-el" data-delay="500">
+            <p class="trusted-kicker">CORE TECH STACK & TOOLS</p>
+            <div class="trusted-icons-flex">
+              <!-- C -->
+              <div class="trusted-badge" title="C Programming">
+                <span style="font-weight: 800; font-size: 1.05rem; color: #ff4b12;">C</span>
+              </div>
+              <!-- Python -->
+              <div class="trusted-badge" title="Python">
+                <span style="font-weight: 800; font-size: 0.95rem; color: #38bdf8;">Py</span>
+              </div>
+              <!-- Java -->
+              <div class="trusted-badge" title="Java">
+                <span style="font-weight: 800; font-size: 0.9rem; color: #f97316;">Java</span>
+              </div>
+              <!-- Spring Boot -->
+              <div class="trusted-badge" title="Spring Boot">
+                <span style="font-weight: 800; font-size: 0.8rem; color: #4ade80;">Spring</span>
+              </div>
+              <!-- GitHub -->
+              <div class="trusted-badge" title="GitHub">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Bottom Right Stamp / Tag -->
+        <div class="hero-bottom-right-tag" aria-hidden="true">
+          <span>ENGINEERING</span>
+          <span>INTELLIGENCE THROUGH</span>
+          <span class="orange-accent">CODE & HARDWARE</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section — Engineering Identity -->
+    <section id="about" class="section about-section" data-canvas-opacity="0.6">
+      <div class="section-container">
+        <div class="about-layout">
+          <div class="about-text-col">
+            <div class="showcase-tag reveal-el">✦ BEHIND THE ENGINEER</div>
+            <h2 class="showcase-title reveal-el" data-delay="100">BRIDGING HARDWARE PRECISION & SOFTWARE INTELLIGENCE</h2>
+            <p class="about-summary-desc reveal-el" data-delay="200">
+              I am an Electronics & Computer Engineer passionate about building high-performance systems from the silicon up to intelligent cloud services. Proficient in C, Python, and Java, I am actively sharpening my expertise in Embedded Systems Engineering while architecting production-grade AI applications using Java Spring Boot and Retrieval-Augmented Generation (RAG).
+            </p>
+          </div>
+
+          <!-- Engineering Identity Path -->
+          <div class="engineering-path reveal-el" data-delay="300">
+            <div class="eng-node" data-label="HARDWARE">
+              <div class="eng-node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
+                  <line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/>
+                  <line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/>
+                  <line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/>
+                  <line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+                </svg>
+              </div>
+              <span class="eng-node-label">HARDWARE</span>
+            </div>
+            <div class="eng-connector"><div class="eng-connector-line"></div></div>
+            <div class="eng-node" data-label="EMBEDDED">
+              <div class="eng-node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <span class="eng-node-label">EMBEDDED</span>
+            </div>
+            <div class="eng-connector"><div class="eng-connector-line"></div></div>
+            <div class="eng-node" data-label="SOFTWARE">
+              <div class="eng-node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                </svg>
+              </div>
+              <span class="eng-node-label">SOFTWARE</span>
+            </div>
+            <div class="eng-connector"><div class="eng-connector-line"></div></div>
+            <div class="eng-node active" data-label="AI">
+              <div class="eng-node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+                </svg>
+              </div>
+              <span class="eng-node-label">AI / RAG</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Experience -->
+        <div class="terminal-block reveal-el" data-delay="400">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="t-dot t-red"></span>
+              <span class="t-dot t-yellow"></span>
+              <span class="t-dot t-green"></span>
+            </div>
+            <span class="terminal-title">jayesh@portfolio:~</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line">
+              <span class="t-prompt">jayesh@portfolio:~$</span>
+              <span class="t-cmd"> ./about.sh</span>
+            </div>
+            <div class="terminal-line t-output">
+              <span class="t-text">> Electronics Engineer</span>
+              <span class="t-status t-ok">[OK]</span>
+            </div>
+            <div class="terminal-line t-output">
+              <span class="t-text">> Software Developer</span>
+              <span class="t-status t-ok">[OK]</span>
+            </div>
+            <div class="terminal-line t-output">
+              <span class="t-text">> Embedded Systems</span>
+              <span class="t-status t-building">[BUILDING]</span>
+            </div>
+            <div class="terminal-line t-output">
+              <span class="t-text">> AI / RAG</span>
+              <span class="t-status t-building">[BUILDING]</span>
+            </div>
+            <div class="terminal-line t-output t-gap">
+              <span class="t-text">> STATUS:</span>
+              <span class="t-status t-online">ONLINE</span>
+            </div>
+            <div class="terminal-line">
+              <span class="t-prompt">jayesh@portfolio:~$</span>
+              <span class="t-cursor">▌</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills / Expertise Section -->
+    <section id="skills" class="section skills-section" data-canvas-opacity="0.8">
+      <div class="section-container">
+        <div class="section-header-block">
+          <div class="showcase-tag reveal-el">✦ CORE CAPABILITIES & DOMAINS</div>
+          <h2 class="showcase-title reveal-el" data-delay="100">TECHNICAL & ENGINEERING EXPERTISE</h2>
+        </div>
+        <div class="skills-grid">
+          <!-- Programming -->
+          <div class="skill-card reveal-el" data-delay="100">
+            <div class="skill-card-header">
+              <span class="card-num">01</span>
+              <span class="skill-category-tag">PROGRAMMING</span>
+            </div>
+            <h3>C, Python & Java</h3>
+            <p>Solid foundation in systems programming, object-oriented design, memory management, and robust backend engineering with C, Python, and Java.</p>
+            <div class="skill-tags">
+              <span class="skill-pill">C Programming</span>
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">Java 17/21</span>
+              <span class="skill-pill">Data Structures & OOP</span>
+            </div>
+          </div>
+          <!-- Embedded Systems -->
+          <div class="skill-card reveal-el" data-delay="200">
+            <div class="skill-card-header">
+              <span class="card-num">02</span>
+              <span class="skill-category-tag">EMBEDDED SYSTEMS</span>
+            </div>
+            <h3>Embedded Systems (Future Focus)</h3>
+            <p>Advancing into embedded engineering: microcontrollers, low-level firmware architecture, hardware-software interfacing, and sensor communication.</p>
+            <div class="skill-tags">
+              <span class="skill-pill">Embedded C</span>
+              <span class="skill-pill">Microcontrollers</span>
+              <span class="skill-pill">Firmware Design</span>
+              <span class="skill-pill">UART / I2C / SPI</span>
+            </div>
+          </div>
+          <!-- Backend & AI -->
+          <div class="skill-card reveal-el" data-delay="300">
+            <div class="skill-card-header">
+              <span class="card-num">03</span>
+              <span class="skill-category-tag">BACKEND & AI</span>
+            </div>
+            <h3>Spring Boot & AI RAG Systems</h3>
+            <p>Designing enterprise backends and intelligent agents with Java Spring Boot, Retrieval-Augmented Generation (RAG), and vector embeddings.</p>
+            <div class="skill-tags">
+              <span class="skill-pill">Java Spring Boot</span>
+              <span class="skill-pill">RAG Architecture</span>
+              <span class="skill-pill">Vector Search</span>
+              <span class="skill-pill">REST APIs & Microservices</span>
+            </div>
+          </div>
+          <!-- Tools -->
+          <div class="skill-card reveal-el" data-delay="400">
+            <div class="skill-card-header">
+              <span class="card-num">04</span>
+              <span class="skill-category-tag">TOOLS</span>
+            </div>
+            <h3>Development Tools & Platforms</h3>
+            <p>Proficient with modern development toolchains, version control, build systems, and deployment workflows for efficient engineering.</p>
+            <div class="skill-tags">
+              <span class="skill-pill">Git & GitHub</span>
+              <span class="skill-pill">Linux / CLI</span>
+              <span class="skill-pill">VS Code</span>
+              <span class="skill-pill">Maven / Gradle</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- System Architecture Section -->
+    <section id="system" class="section system-section" data-canvas-opacity="0.85">
+      <div class="section-container">
+        <div class="section-header-block">
+          <div class="showcase-tag reveal-el">✦ END-TO-END ENGINEERING</div>
+          <h2 class="showcase-title reveal-el" data-delay="100">SYSTEM ARCHITECTURE</h2>
+        </div>
+        <div class="architecture-flow reveal-el" data-delay="200" id="arch-flow">
+          <div class="arch-node" data-step="1">
+            <div class="arch-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <span class="arch-label">SENSORS</span>
+          </div>
+          <div class="arch-arrow"><div class="arch-arrow-line"></div><span class="arch-arrow-head">→</span></div>
+          <div class="arch-node" data-step="2">
+            <div class="arch-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+            </div>
+            <span class="arch-label">EMBEDDED C</span>
+          </div>
+          <div class="arch-arrow"><div class="arch-arrow-line"></div><span class="arch-arrow-head">→</span></div>
+          <div class="arch-node" data-step="3">
+            <div class="arch-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <span class="arch-label">DATA</span>
+          </div>
+          <div class="arch-arrow"><div class="arch-arrow-line"></div><span class="arch-arrow-head">→</span></div>
+          <div class="arch-node" data-step="4">
+            <div class="arch-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <span class="arch-label">BACKEND</span>
+          </div>
+          <div class="arch-arrow"><div class="arch-arrow-line"></div><span class="arch-arrow-head">→</span></div>
+          <div class="arch-node" data-step="5">
+            <div class="arch-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            </div>
+            <span class="arch-label">AI / RAG</span>
+          </div>
+          <div class="arch-arrow"><div class="arch-arrow-line"></div><span class="arch-arrow-head">→</span></div>
+          <div class="arch-node arch-final" data-step="6">
+            <div class="arch-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <span class="arch-label">INTELLIGENT<br>SYSTEM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section" data-canvas-opacity="0.9">
+      <div class="section-container">
+        <div class="section-header-block">
+          <div class="showcase-tag reveal-el">✦ FEATURED WORK & INNOVATIONS</div>
+          <h2 class="showcase-title reveal-el" data-delay="100">SELECTED PROJECTS</h2>
+        </div>
+        <div class="projects-grid">
+          <!-- Flagship Java Spring Boot + RAG Project -->
+          <div class="project-card featured-project reveal-el" data-delay="100" data-cursor="VIEW PROJECT" data-project="rag">
+            <div class="project-header">
+              <span class="project-num">P—01</span>
+              <div class="project-meta">
+                <span class="project-year">2026</span>
+                <span class="project-category featured-badge">Flagship Project</span>
+              </div>
+            </div>
+            <h3 class="project-title">GitHub Repo AI RAG Assistant</h3>
+            <p class="project-desc">A full-stack intelligent repository analyzer built in Java & Spring Boot using Retrieval-Augmented Generation (RAG). The system automatically clones and vector-indexes entire GitHub codebases, allowing developers to ask any technical question about repository architecture, logic, or dependencies and get accurate, context-aware answers.</p>
+            <div class="skill-tags" style="margin-bottom: 20px;">
+              <span class="skill-pill">Java</span>
+              <span class="skill-pill">Spring Boot</span>
+              <span class="skill-pill">RAG & LLM</span>
+              <span class="skill-pill">GitHub API</span>
+              <span class="skill-pill">Vector Search</span>
+            </div>
+            <div class="project-link-row">
+              <span class="project-link-text">VIEW PROJECT ARCHITECTURE ➔</span>
+            </div>
+          </div>
+
+          <!-- Embedded C Project -->
+          <div class="project-card reveal-el" data-delay="200" data-cursor="VIEW PROJECT" data-project="firmware">
+            <div class="project-header">
+              <span class="project-num">P—02</span>
+              <div class="project-meta">
+                <span class="project-year">2025</span>
+                <span class="project-category">Embedded & C</span>
+              </div>
+            </div>
+            <h3 class="project-title">Microcontroller Firmware & Hardware Controller</h3>
+            <p class="project-desc">Engineered low-level C firmware for microcontroller units focusing on real-time sensor polling, GPIO interrupt routines, and power-optimized hardware peripheral communication over serial buses.</p>
+            <div class="skill-tags" style="margin-bottom: 20px;">
+              <span class="skill-pill">Embedded C</span>
+              <span class="skill-pill">Microcontrollers</span>
+              <span class="skill-pill">Firmware</span>
+              <span class="skill-pill">Hardware Protocols</span>
+            </div>
+            <div class="project-link-row">
+              <span class="project-link-text">EXPLORE FIRMWARE ➔</span>
+            </div>
+          </div>
+
+          <!-- Python Automation Project -->
+          <div class="project-card reveal-el" data-delay="300" data-cursor="VIEW PROJECT" data-project="telemetry">
+            <div class="project-header">
+              <span class="project-num">P—03</span>
+              <div class="project-meta">
+                <span class="project-year">2025</span>
+                <span class="project-category">Python & Systems</span>
+              </div>
+            </div>
+            <h3 class="project-title">Automated Telemetry & Hardware Diagnostic Suite</h3>
+            <p class="project-desc">Developed an automated Python processing tool to parse serial log outputs, decode binary packet telemetry from hardware boards, and generate diagnostic reports for systems validation.</p>
+            <div class="skill-tags" style="margin-bottom: 20px;">
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">Automation</span>
+              <span class="skill-pill">Data Processing</span>
+              <span class="skill-pill">Diagnostics</span>
+            </div>
+            <div class="project-link-row">
+              <span class="project-link-text">EXPLORE PIPELINE ➔</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Currently Building Section -->
+    <section id="building" class="section building-section" data-canvas-opacity="0.92">
+      <div class="section-container">
+        <div class="section-header-block">
+          <div class="showcase-tag reveal-el">✦ WORK IN PROGRESS</div>
+          <h2 class="showcase-title reveal-el" data-delay="100">CURRENTLY BUILDING</h2>
+        </div>
+        <div class="building-grid">
+          <div class="building-card reveal-el" data-delay="150">
+            <div class="building-status-row">
+              <span class="building-status building">BUILDING</span>
+            </div>
+            <h3 class="building-title">GitHub Repo AI RAG Assistant</h3>
+            <p class="building-desc">Expanding the RAG system with multi-repo indexing, conversation memory, and architectural diagram generation from codebase analysis.</p>
+            <div class="skill-tags">
+              <span class="skill-pill">Java</span>
+              <span class="skill-pill">Spring Boot</span>
+              <span class="skill-pill">RAG</span>
+            </div>
+          </div>
+          <div class="building-card reveal-el" data-delay="250">
+            <div class="building-status-row">
+              <span class="building-status building">BUILDING</span>
+            </div>
+            <h3 class="building-title">Embedded Systems Lab Projects</h3>
+            <p class="building-desc">Developing firmware for various microcontroller platforms, exploring real-time operating systems, and interfacing with industrial sensors.</p>
+            <div class="skill-tags">
+              <span class="skill-pill">Embedded C</span>
+              <span class="skill-pill">MCU</span>
+              <span class="skill-pill">Sensors</span>
+            </div>
+          </div>
+          <div class="building-card reveal-el" data-delay="350">
+            <div class="building-status-row">
+              <span class="building-status experimental">EXPERIMENTAL</span>
+            </div>
+            <h3 class="building-title">Portfolio Engineering Showcase</h3>
+            <p class="building-desc">This website itself — continuously evolving as an interactive engineering experience with scroll-driven animations and technical aesthetics.</p>
+            <div class="skill-tags">
+              <span class="skill-pill">HTML / CSS / JS</span>
+              <span class="skill-pill">Canvas</span>
+              <span class="skill-pill">Animation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section" data-canvas-opacity="0.95">
+      <div class="section-container">
+        <!-- Section Header -->
+        <div class="section-header-block contact-header-block">
+          <div class="showcase-tag reveal-el">✦ GET IN TOUCH & COLLABORATE</div>
+          <h2 class="showcase-title reveal-el" data-delay="100">LET'S CONNECT & BUILD</h2>
+          <p class="contact-header-desc reveal-el" data-delay="200">
+            Open for Embedded Engineering, Software Development, and AI RAG collaborations. Connect with me directly across any of these channels:
+          </p>
+        </div>
+
+        <!-- 4 Channels Grid -->
+        <div class="contact-channels-grid">
+          <!-- GitHub Card -->
+          <a href="https://github.com/Jayesh-SLR" target="_blank" rel="noopener noreferrer" class="contact-card github-card reveal-el" data-delay="100" data-cursor="OPEN →">
+            <div class="contact-card-top">
+              <div class="contact-card-icon-box github-icon-box">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                </svg>
+              </div>
+              <span class="contact-card-tag">CODE & REPOSITORIES</span>
+            </div>
+            <div class="contact-card-info">
+              <h3 class="contact-card-title">GitHub</h3>
+              <p class="contact-card-desc">Browse my codebases, Java Spring Boot RAG project, and systems repositories.</p>
+            </div>
+            <div class="contact-card-action">
+              <span class="contact-action-btn">
+                <span>View Repositories</span>
+                <span class="arrow-badge">➔</span>
+              </span>
+            </div>
+          </a>
+
+          <!-- LinkedIn Card -->
+          <a href="https://www.linkedin.com/in/jayesh-shelar-7b897a320/" target="_blank" rel="noopener noreferrer" class="contact-card linkedin-card reveal-el" data-delay="200" data-cursor="OPEN →">
+            <div class="contact-card-top">
+              <div class="contact-card-icon-box linkedin-icon-box">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.6 1.6 0 1 0-.01-3.2 1.6 1.6 0 0 0 .01 3.2m1.4 9.74V10.13H5.06v8.37h2.8z"/>
+                </svg>
+              </div>
+              <span class="contact-card-tag">PROFESSIONAL NETWORK</span>
+            </div>
+            <div class="contact-card-info">
+              <h3 class="contact-card-title">LinkedIn</h3>
+              <p class="contact-card-desc">Connect with me for engineering roles, technical networking, and project milestones.</p>
+            </div>
+            <div class="contact-card-action">
+              <span class="contact-action-btn">
+                <span>Connect on LinkedIn</span>
+                <span class="arrow-badge">➔</span>
+              </span>
+            </div>
+          </a>
+
+          <!-- Gmail Card -->
+          <a href="mailto:jayesh1000k@example.com" class="contact-card gmail-card reveal-el" data-delay="300" data-cursor="OPEN →" id="gmail-contact-link">
+            <div class="contact-card-top">
+              <div class="contact-card-icon-box gmail-icon-box">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </div>
+              <span class="contact-card-tag">DIRECT INBOX</span>
+            </div>
+            <div class="contact-card-info">
+              <h3 class="contact-card-title">Gmail</h3>
+              <p class="contact-card-desc">Send me an email for detailed project proposals, inquiries, or direct reachouts.</p>
+            </div>
+            <div class="contact-card-action">
+              <span class="contact-action-btn">
+                <span>Send Email</span>
+                <span class="arrow-badge">➔</span>
+              </span>
+            </div>
+          </a>
+
+          <!-- WhatsApp Card -->
+          <a href="https://wa.me/918275539861?text=Hi%20Jayesh%2C%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" class="contact-card whatsapp-card reveal-el" data-delay="400" data-cursor="OPEN →">
+            <div class="contact-card-top">
+              <div class="contact-card-icon-box whatsapp-icon-box">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
+                  <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.12-.22-.19-.47-.32"/>
+                </svg>
+              </div>
+              <span class="contact-card-tag">INSTANT MESSAGING</span>
+            </div>
+            <div class="contact-card-info">
+              <h3 class="contact-card-title">WhatsApp</h3>
+              <p class="contact-card-desc">Direct messaging for quick technical chats, queries, and instant updates.</p>
+            </div>
+            <div class="contact-card-action">
+              <span class="contact-action-btn">
+                <span>Chat on WhatsApp</span>
+                <span class="arrow-badge">➔</span>
+              </span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Quick Message Direct Form Box -->
+        <div class="contact-form-wrapper reveal-el" data-delay="300">
+          <div class="contact-form-box">
+            <div class="form-header">
+              <span class="footer-tag">DIRECT INQUIRY</span>
+              <h3 class="form-title">Send Me a Message</h3>
+              <p class="form-desc">Have a project or want to collaborate? Leave a message below:</p>
+            </div>
+            <form
+  class="direct-contact-form"
+  action="https://formspree.io/f/meaovooa"
+  method="POST"
+>
+  <div class="form-row">
+
+    <input
+      type="text"
+      name="name"
+      placeholder="Your Name"
+      required
+      class="modal-input"
+      aria-label="Your name"
+      autocomplete="name"
+    >
+
+    <input
+      type="email"
+      name="email"
+      placeholder="Your Email Address"
+      required
+      class="modal-input"
+      aria-label="Your email"
+      autocomplete="email"
+    >
+
+  </div>
+
+  <input
+    type="text"
+    name="subject"
+    placeholder="Subject (e.g. Embedded Firmware, Spring Boot RAG Project)"
+    required
+    class="modal-input"
+    aria-label="Subject"
+  >
+
+  <textarea
+    name="message"
+    rows="4"
+    placeholder="Your message or collaboration idea..."
+    required
+    class="modal-input"
+    aria-label="Message"
+  ></textarea>
+
+  <!-- Optional: helps identify where the message came from -->
+  <input
+    type="hidden"
+    name="_subject"
+    value="New Portfolio Contact — Jayesh Shelar"
+  >
+
+  <button
+    type="submit"
+    class="btn-view-work submit-contact-btn magnetic-btn"
+  >
+    <span>SEND MESSAGE</span>
+
+    <span class="btn-inner-circle">
+      <span class="inner-dot"></span>
+    </span>
+  </button>
+
+</form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Bottom Line -->
+    <footer class="footer-bottom-section">
+      <div class="section-container">
+        <div class="footer-bottom-bar">
+          <div class="footer-copyright-col">
+            <span class="footer-brand-name">JAYESH SHELAR</span>
+            <span class="footer-copy-text">© 2026 — Electronics & Computer Engineer. All Rights Reserved.</span>
+          </div>
+          <div class="footer-status-pill">
+            <span class="status-pulse-dot"></span>
+            <span>AVAILABLE FOR EMBEDDED & SOFTWARE OPPORTUNITIES</span>
+          </div>
+          <a href="#home" class="scroll-top-link" data-cursor="NAVIGATE">
+            <span>SCROLL TO TOP ⬆</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Project Detail Modal -->
+  <div id="project-modal" class="modal-backdrop project-modal-backdrop">
+    <div class="modal-card project-modal-card">
+      <button class="modal-close" id="close-project-modal" aria-label="Close project details">&times;</button>
+      <div class="project-modal-content">
+        <span class="modal-tag" id="pm-category"></span>
+        <h3 class="modal-title" id="pm-title"></h3>
+        <div class="project-modal-meta">
+          <span class="pm-year" id="pm-year"></span>
+          <span class="pm-number" id="pm-number"></span>
+        </div>
+        <p class="modal-desc" id="pm-desc"></p>
+        <div class="pm-tech-stack" id="pm-techs"></div>
+        <div class="pm-links" id="pm-links"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Showreel Video Modal -->
+  <div id="showreel-modal" class="modal-backdrop">
+    <div class="modal-card showreel-card">
+      <button class="modal-close" id="close-showreel" aria-label="Close showreel">&times;</button>
+      <span class="modal-tag">INTERACTIVE SHOWREEL</span>
+      <h3 class="modal-title">Scroll-Driven Experience 2026</h3>
+      <div class="video-mockup">
+        <div class="video-screen">
+          <div class="pulse-ring"></div>
+          <p class="preview-text">Scroll animation acts as your live interactive showreel behind the canvas.</p>
+          <button class="btn-view-work modal-play-btn" id="resume-scrub">
+            <span>RESUME SCROLL TOUR</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
